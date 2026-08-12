@@ -1,0 +1,3 @@
+export type SectorFilter = 'All Sectors' | 'Greenhouse / Hydroponics' | 'Aquaculture' | 'Livestock & BSF'
+export const sectorFilters: SectorFilter[] = ['All Sectors', 'Greenhouse / Hydroponics', 'Aquaculture', 'Livestock & BSF']
+export const sectorTelemetry = [{ id: 'aquaculture', name: 'Aquaculture Tank', status: 'Optimal', metrics: ['Water pH 7.2', 'Dissolved oxygen 6.8 mg/L', 'Temperature 27.1 °C', 'Ammonia 0.8 ppm'] }, { id: 'greenhouse', name: 'Greenhouse A', status: 'Optimal', metrics: ['Moisture 68%', 'NPK 150 / 40 / 200 ppm', 'EC 1.8 mS/cm', 'Light 22,000 Lux'] }, { id: 'bsf', name: 'Compost & BSF Unit', status: 'Warning', metrics: ['Ammonia gas 18 ppm', 'Methane gas 5 ppm', 'Conveyor level 82%', 'Chamber temp 29.5 °C'] }] as const
