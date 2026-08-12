@@ -1,0 +1,3 @@
+export const reportKpis = [['Water recirculated & saved', '1,240 L'], ['Energy saved', '36.2 kWh'], ['Organic waste diverted', '84.0 kg'], ['Feed conversion ratio', '1.2']]
+export const correlationData = [{ day: 'Aug 1', ammonia: 88, nitrogen: 42 }, { day: 'Aug 3', ammonia: 81, nitrogen: 48 }, { day: 'Aug 5', ammonia: 73, nitrogen: 55 }, { day: 'Aug 7', ammonia: 64, nitrogen: 62 }, { day: 'Aug 9', ammonia: 54, nitrogen: 70 }, { day: 'Aug 11', ammonia: 46, nitrogen: 78 }, { day: 'Aug 12', ammonia: 41, nitrogen: 84 }]
+export const yieldData = [{ name: 'Fish harvest', value: 128 }, { name: 'Crop yield', value: 96 }, { name: 'Maggot protein', value: 38 }]
