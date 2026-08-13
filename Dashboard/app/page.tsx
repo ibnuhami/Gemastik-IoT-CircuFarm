@@ -17,59 +17,19 @@ import {
   PageHeading,
   SectionCard,
 } from "@/components/layout/app-shell";
-import { automationLog, overviewTelemetry } from "@/services/overview";
+import {
+  automationLog,
+  getCurrentStyle,
+  getStatusConfig,
+  overviewTelemetry,
+} from "@/services/overview";
 import { sectorTelemetry } from "@/services/sectors";
 import { useMqtt } from "@/context/MqttContext";
 
 export default function OverviewPage() {
   const { status, reconnect } = useMqtt();
-  const statusStyles = {
-    CONNECTED:
-      "border-emerald-400/40 bg-emerald-400/5 text-emerald-400 shadow-[0_0_60px_rgba(52,211,153,0.15)]",
-    CONNECTING:
-      "border-amber-400/40 bg-amber-400/5 text-amber-400 shadow-[0_0_60px_rgba(251,191,36,0.15)]",
-    RECONNECTING:
-      "border-amber-400/40 bg-amber-400/5 text-amber-400 shadow-[0_0_60px_rgba(251,191,36,0.15)]",
-    ERROR:
-      "border-rose-500/40 bg-rose-500/5 text-rose-400 shadow-[0_0_60px_rgba(244,63,94,0.15)]",
-    DISCONNECTED:
-      "border-rose-500/40 bg-rose-500/5 text-rose-400 shadow-[0_0_60px_rgba(244,63,94,0.15)]",
-  };
-  const getStatusConfig = () => {
-    switch (status) {
-      case 'CONNECTED':
-        return {
-          label: 'Connected',
-          iconAnim: 'animate-pulse',
-          style: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.15)]',
-          canReconnect: false,
-        };
-      case 'CONNECTING':
-      case 'RECONNECTING':
-        return {
-          label: status === 'CONNECTING' ? 'Connecting...' : 'Reconnecting...',
-          iconAnim: 'animate-spin',
-          style: 'border-amber-500/30 bg-amber-500/10 text-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.15)]',
-          canReconnect: false,
-        };
-      case 'ERROR':
-      case 'DISCONNECTED':
-      default:
-        return {
-          label: 'Coba Lagi',
-          iconAnim: '',
-          style: 'border-rose-500/40 bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 shadow-[0_0_12px_rgba(244,63,94,0.15)] cursor-pointer active:scale-95',
-          canReconnect: true,
-        };
-    }
-  };
-
-  const config = getStatusConfig();
-
-  // Fallback ke merah jika status tidak dikenali
-  const currentStyle =
-    statusStyles[status as keyof typeof statusStyles] ||
-    statusStyles.DISCONNECTED;
+  const config = getStatusConfig(status);
+  const currentStyle = getCurrentStyle(status);
   return (
     <AppShell>
       <PageHeading

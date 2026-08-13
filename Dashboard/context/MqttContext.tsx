@@ -40,6 +40,8 @@ export function MqttProvider({ children, brokerUrl }: MqttProviderProps) {
 
     clientRef.current = client;
 
+    // context/MqttContext.tsx
+
     client.on("connect", (connack) => {
       console.info("✅ [MQTT Helper] Terhubung ke Broker:", brokerUrl);
       setIsConnected(true);
@@ -59,7 +61,7 @@ export function MqttProvider({ children, brokerUrl }: MqttProviderProps) {
     });
 
     client.on("close", () => {
-      console.error("🔌 [MQTT CLOSE] Koneksi ke broker terputus");
+      console.warn("🔌 [MQTT CLOSE] Koneksi ke broker terputus");
       setIsConnected(false);
       setStatus("DISCONNECTED");
     });
@@ -91,7 +93,8 @@ export function MqttProvider({ children, brokerUrl }: MqttProviderProps) {
   const subscribe = useCallback((topic: string | string[]) => {
     if (clientRef.current && clientRef.current.connected) {
       clientRef.current.subscribe(topic, (err) => {
-        if (err) console.error(`❌ [MQTT Helper] Failed to subscribe: ${topic}`, err);
+        if (err)
+          console.error(`❌ [MQTT Helper] Failed to subscribe: ${topic}`, err);
       });
     }
   }, []);
@@ -106,7 +109,8 @@ export function MqttProvider({ children, brokerUrl }: MqttProviderProps) {
     if (clientRef.current && clientRef.current.connected) {
       const payload = formatPayload(message);
       clientRef.current.publish(topic, payload, { qos: 0 }, (err) => {
-        if (err) console.error(`❌ [MQTT Helper] Gagal publish ke ${topic}:`, err);
+        if (err)
+          console.error(`❌ [MQTT Helper] Gagal publish ke ${topic}:`, err);
       });
     } else {
       console.warn("⚠️ [MQTT Helper] Tidak dapat mengirim, MQTT terputus");

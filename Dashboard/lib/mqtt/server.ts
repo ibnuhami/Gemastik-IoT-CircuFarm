@@ -5,7 +5,7 @@ let serverClient: MqttClient | null = null;
 
 export function getServerMqttClient(brokerUrl?: string): MqttClient {
   if (!serverClient) {
-    const url = brokerUrl || process.env.MQTT_BROKER_URL || "mqtt://localhost:1883";
+    const url = brokerUrl || process.env.MQTT_BROKER_URL || "ws://192.168.18.29:9001/mqtt";
     serverClient = mqtt.connect(url, {
       clientId: `nextjs_server_${Math.random().toString(16).substring(2, 8)}`,
       clean: true,
