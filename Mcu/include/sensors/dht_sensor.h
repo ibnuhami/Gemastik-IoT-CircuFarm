@@ -18,14 +18,16 @@ inline void appendDHTPayload(JsonBuilder &json) {
 
   // Pengolahan data & penanganan error dilakukan di sini
   if (isnan(temp) || isnan(hum)) {
-    json.add("id_device", "DHT-01");
+    json.add("node_id", "DHT-01");
+    json.add("sector", "livestock_bsf");
     json.add("air_temp_c", 0.0);
     json.add("air_humidity_pct", 0.0);
     json.add("status", "warning");
     json.add("dht_error", true);
   } else {
-    json.add("id_device", "DHT-01");
+    json.add("node_id", "DHT-01");
     json.add("air_temp_c", temp, 1);
+    json.add("sector", "livestock_bsf");
     json.add("air_humidity_pct", hum, 0);
     json.add("status", "optimal");
   }

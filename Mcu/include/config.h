@@ -10,6 +10,6 @@
 // ================= HARDWARE & TOPIC =================
 #define DHTPIN           4                      // GPIO 4 ESP32
 #define DHTTYPE          DHT11
-#define TOPIC_TELEMETRY  "farm/greenhouse_a/mcu_01/data"
+#define TOPIC_TELEMETRY  "farm/telemetry/greenhouse_a/mcu_01/data"
 
 #endif

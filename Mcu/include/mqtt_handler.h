@@ -37,7 +37,7 @@ inline void publishTelemetry(String payload) {
   if (payload != "") {
     Serial.print("Mengirim MQTT: ");
     Serial.println(payload);
-    mqttClient.publish(TOPIC_TELEMETRY, payload.c_str());
+    mqttClient.publish(TOPIC_TELEMETRY, payload.c_str(), true);
   }
 }
 
