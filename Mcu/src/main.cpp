@@ -1,18 +1,33 @@
 #include <Arduino.h>
+#include "config.h"
+#include "wifi_handler.h"
+#include "mqtt_handler.h"
+#include "sensors/sensor_manager.h"
 
-// put function declarations here:
-int myFunction(int, int);
+DHT dht(DHTPIN, DHTTYPE);
+WiFiClient espClient;
+PubSubClient mqttClient(espClient);
+
+unsigned long lastSendTime = 0;
+const unsigned long interval = 5000;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(115200);
+  
+  setupWiFi();
+  setupMQTT();
+  initAllSensors(); // 👈 Menyiapkan semua sensor
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  handleMQTT();
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  unsigned long currentMillis = millis();
+  if (currentMillis - lastSendTime >= interval) {
+    lastSendTime = currentMillis;
+
+    // 👈 Mengambil gabungan data semua sensor dalam bentuk JSON
+    String jsonPayload = collectAllSensorPayload(); 
+    publishTelemetry(jsonPayload);
+  }
 }
