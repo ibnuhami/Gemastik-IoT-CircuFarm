@@ -12,25 +12,13 @@ inline void initAllSensors() {
 }
 
 inline String collectAllSensorPayload() {
-  // 1. Baca semua sensor
-  DHTData dhtData = readDHT();
-//   float soilMoisture = readSoilMoisture();
-
-  // 2. Susun ke format JSON menggunakan JsonBuilder
   JsonBuilder json;
   json.begin();
 
-  if (dhtData.isValid) {
-    json.add("temp_c", dhtData.temp, 1);
-    json.add("air_humidity_pct", dhtData.hum, 0);
-  } else {
-    json.add("temp_c", 0.0);
-    json.add("air_humidity_pct", 0.0);
-  }
-
-  // Tambahkan data sensor lain dengan mudah
-//   json.add("soil_moisture_pct", soilMoisture, 0);
-  json.add("status", dhtData.isValid ? "optimal" : "warning");
+  // Sensor Manager HANYA memanggil fungsi pengumpul dari masing-masing modul sensor
+  appendDHTPayload(json);
+// appendSoilPayload(json);
+// appendPhPayload(json);
 
   return json.end();
 }
