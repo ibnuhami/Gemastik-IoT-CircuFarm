@@ -11,8 +11,14 @@ extern PubSubClient mqttClient;
 inline void reconnectMQTT() {
   while (!mqttClient.connected()) {
     Serial.print("Mencoba koneksi ke MQTT Broker...");
-    if (mqttClient.connect("ESP32_Greenhouse_Client")) {
-      Serial.println("Terhubung ke Broker!");
+    
+    // Membuat Client ID unik otomatis berdasarkan MAC Address ESP32
+    String clientId = "ESP32-Client-";
+    clientId += String((uint32_t)ESP.getEfuseMac(), HEX);
+
+    if (mqttClient.connect(clientId.c_str())) {
+      Serial.print("Terhubung ke Broker! ID: ");
+      Serial.println(clientId);
     } else {
       Serial.print("Gagal, rc=");
       Serial.print(mqttClient.state());
@@ -24,6 +30,7 @@ inline void reconnectMQTT() {
 
 inline void setupMQTT() {
   mqttClient.setServer(MQTT_BROKER, MQTT_PORT);
+  mqttClient.setBufferSize(1024);
 }
 
 inline void handleMQTT() {

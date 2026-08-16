@@ -1,3 +1,5 @@
+export type SectorStatus = 'Optimal' | 'Warning';
+
 export type MqttStatus =
   | "CONNECTING"
   | "CONNECTED"
@@ -60,15 +62,15 @@ export interface LivestockBsfTelemetry {
   node_id: string;
   sector: "livestock_bsf";
   timestamp: string;
-  coop_temp_c: number;
-  coop_humidity_pct: number;
-  ammonia_gas_ppm: number;
-  methane_ppm: number;
-  bsf_chamber_temp_c: number;
-  bsf_larvae_age_days: number;
-  manure_level_pct: number;
-  air_temp_c: number;
-  air_humidity_pct: number;
+  coop_temp_c: number; // Suhu udara di sekitar kandang ternak (DHT11)
+  coop_humidity_pct: number; // Kelembapan udara di sekitar kandang ternak (DHT11)
+  ammonia_gas_ppm: number; // Konsentrasi gas amonia di dalam kandang (PPM)
+  methane_ppm: number; // Konsentrasi metana di dalam chamber BSF (PPM)
+  bsf_larvae_age_days: number; // Umur larva BSF dalam hari
+  manure_level_pct: number; // Ketinggian limbah organik di dalam chamber BSF (%)
+  bsf_media_moisture_pct: number; // Kelembapan media pakan BSF (%)
+  air_temp_c: number; // Suhu udara di sekitar chamber BSF (DHT11)
+  air_humidity_pct: number; // Kelembapan udara di sekitar chamber BSF (DHT11)
   actuator_status: {
     exhaust_fan: "ON" | "OFF";
     conveyor: "ON" | "OFF";
@@ -121,4 +123,12 @@ export interface ManualOverridePayload {
   override_by: string;
   timestamp: string;
   note?: string;
+}
+
+export interface Sector {
+  id: string;
+  name: string;
+  status: SectorStatus;
+  metrics: string[];
+  parsedMetrics?: Record<string, [number | string, string]>;
 }

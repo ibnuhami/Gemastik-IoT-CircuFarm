@@ -14,12 +14,19 @@ export default function SectorsPage() {
         greenhouse: true,
         bsf: true
     })
-    const { livestockData } = useSector();
+    const { livestockData, bsfData, aquacultureData, hidroponicData, rawTelemetry } = useSector();
 
-    // 2. (Opsional) Kamu juga bisa console log langsung di komponen UI
+    // Buat peta data berdasarkan sector.id
+    const sectorDataMap: Record<string, any> = {
+        livestock: livestockData,
+        bsf: bsfData,
+        aquaculture: aquacultureData,
+        hidroponic: hidroponicData,
+    };
+
     useEffect(() => {
-        console.log("🖥️ [UI Component] Data Masuk:", livestockData);
-    }, [livestockData]);
+        console.log("🖥️ [UI Component] Data Masuk:", rawTelemetry);
+    }, [rawTelemetry]);
 
     const visible = useMemo(() =>
         filter === 'All Sectors'
@@ -75,7 +82,7 @@ export default function SectorsPage() {
                                         <p className="text-xs text-muted-foreground">Telemetry and actuators</p>
                                     </div>
                                 </div>
-                                <span className={`text-[10px] ${sector.status === 'Warning'
+                                <span className={`text-[10px] ${(sector.status as string) === 'Warning'
                                     ? 'text-amber-300'
                                     : 'text-emerald-300'
                                     }`}>
@@ -89,7 +96,7 @@ export default function SectorsPage() {
                                         key={metric}
                                         sectorId={sector.id}
                                         metric={metric}
-                                        livestockData={livestockData}
+                                        data={sectorDataMap[sector.id]}
                                     />
                                 ))}
                             </div>
