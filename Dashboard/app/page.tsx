@@ -31,13 +31,8 @@ import { useFarmMqtt } from "@/hooks/useFarmMqtt";
 
 export default function OverviewPage() {
   const {
-    aquacultureData,
-    cropsData,
-    livestockData,
-    loopStatus,
     alerts,
     nodesStatus,
-    triggerManualOverride,
 } = useFarmMqtt();
   const { status, reconnect } = useMqtt();
   const config = getStatusConfig(status);
