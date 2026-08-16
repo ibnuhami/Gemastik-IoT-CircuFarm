@@ -16,6 +16,7 @@
 #define MQ135_PIN           34                      // Mq135 Pin
 #define TRIG_PIN            5                       // Ultrasonic Pin Trigger
 #define ECHO_PIN            18                      // Ultrasonic Pin Echo
-#define TOPIC_TELEMETRY  "farm/telemetry/greenhouse_a/mcu_01/data"
+#define TOPIC_TELEMETRY  "farm/telemetry/aquaqulture_and_hidroponic/mcu_01/data" // Aquaqulture and Hidroponic Topic
+// #define TOPIC_TELEMETRY  "farm/telemetry/livestock_and_bsf/mcu_01/data" // Livestock and BSF Topic
 
 #endif

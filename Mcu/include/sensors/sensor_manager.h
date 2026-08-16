@@ -23,10 +23,8 @@ inline void initAllSensors()
 
 inline String collectAllSensorPayload()
 {
-  // 1. Buat dokumen JSON bawaan ArduinoJson
   JsonDocument doc;
 
-  // 2. Buat array utama [ ... ]
   JsonArray rootArray = doc.to<JsonArray>();
 
   // ==========================================
@@ -52,7 +50,7 @@ inline String collectAllSensorPayload()
   appendUltrasonicPayload(ultraObj);
 
   // ==========================================
-  // SEKTOR 2: Aquaculture (Contoh Tambahan)
+  // SEKTOR 2: Aquaculture
   // ==========================================
   JsonObject aquaObj = rootArray.add<JsonObject>();
   aquaObj["sector"] = "aquaculture";
@@ -65,7 +63,6 @@ inline String collectAllSensorPayload()
   JsonObject ds18b20Obj = aquaObj["ds18b20"].to<JsonObject>();
   appendDS18B20Payload(ds18b20Obj);
 
-  // 3. Konversi menjadi String
   String output;
   serializeJson(doc, output);
   return output;
