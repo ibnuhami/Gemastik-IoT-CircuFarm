@@ -4,6 +4,8 @@
 #include "mqtt_handler.h"
 #include "sensors/sensor_manager.h"
 
+OneWire oneWire(DS18B20_PIN);
+DallasTemperature sensors(&oneWire);
 DHT dht(DHTPIN, DHTTYPE);
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);

@@ -24,6 +24,7 @@ inline void reconnectMQTT() {
 
 inline void setupMQTT() {
   mqttClient.setServer(MQTT_BROKER, MQTT_PORT);
+  mqttClient.setBufferSize(1024);
 }
 
 inline void handleMQTT() {
