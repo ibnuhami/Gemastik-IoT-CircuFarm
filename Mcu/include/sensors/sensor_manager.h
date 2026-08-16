@@ -28,7 +28,7 @@ inline String collectAllSensorPayload()
   JsonArray rootArray = doc.to<JsonArray>();
 
   // ==========================================
-  // SEKTOR 1: Livestock BSF
+  // SEKTOR 1: Livestock & BSF ( Modul 1 -> LiveStock and BSF )
   // ==========================================
   JsonObject bsfObj = rootArray.add<JsonObject>();
   bsfObj["sector"] = "livestock_bsf";
@@ -50,10 +50,10 @@ inline String collectAllSensorPayload()
   appendUltrasonicPayload(ultraObj);
 
   // ==========================================
-  // SEKTOR 2: Aquaculture
+  // SEKTOR 2: Aquaculture & Hidroponic ( Modul 2 -> Aquaculture & Hidroponic )
   // ==========================================
   JsonObject aquaObj = rootArray.add<JsonObject>();
-  aquaObj["sector"] = "aquaculture";
+  aquaObj["sector"] = "aquaculture_hidroponic";
 
   // Membungkus data Water Level
   JsonObject waterLevelObj = aquaObj["water_level"].to<JsonObject>();
