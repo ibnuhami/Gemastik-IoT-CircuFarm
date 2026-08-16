@@ -19,17 +19,31 @@ import {
 } from "@/components/layout/app-shell";
 import {
   automationLog,
+  calculateAlert,
+  calculateOnlineDevices,
   getCurrentStyle,
   getStatusConfig,
   overviewTelemetry,
 } from "@/services/overview";
 import { sectorTelemetry } from "@/services/sectors";
 import { useMqtt } from "@/context/MqttContext";
+import { useFarmMqtt } from "@/hooks/useFarmMqtt";
 
 export default function OverviewPage() {
+  const {
+    aquacultureData,
+    cropsData,
+    livestockData,
+    loopStatus,
+    alerts,
+    nodesStatus,
+    triggerManualOverride,
+} = useFarmMqtt();
   const { status, reconnect } = useMqtt();
   const config = getStatusConfig(status);
   const currentStyle = getCurrentStyle(status);
+  const activeDevice = calculateOnlineDevices(nodesStatus);
+  const countAlert = calculateAlert(alerts);
   return (
     <AppShell>
       <PageHeading
@@ -109,7 +123,7 @@ export default function OverviewPage() {
           <h3 className="mt-1 font-semibold">Connected devices</h3>
           <div className="mt-7 grid grid-cols-2 gap-5">
             {[
-              [overviewTelemetry.sensorsOnline, "Online now"],
+              [activeDevice, "Online now"],
               [overviewTelemetry.actuatorsActive, "Actuators active"],
               [overviewTelemetry.alertsToday, "Alerts today"],
               [overviewTelemetry.uptime, "Uptime"],
