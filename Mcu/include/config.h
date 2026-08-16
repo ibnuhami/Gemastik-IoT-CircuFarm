@@ -8,11 +8,14 @@
 #define MQTT_PORT           1883
 
 // ================= HARDWARE & TOPIC =================
-#define DHTPIN              4                      // GPIO 4 ESP32
+#define DHTPIN              4                       // GPIO 4 ESP32 -> DHT11
 #define DHTTYPE             DHT11
-#define SOIL_PIN            34
-#define DS18B20_PIN         27
-#define WATER_LEVEL_PIN     33
+#define SOIL_PIN            34                      // Soil Moisture Pin
+#define DS18B20_PIN         27                      // DS18B20 Pin
+#define WATER_LEVEL_PIN     33                      // Water Level Pin
+#define MQ135_PIN           34                      // Mq135 Pin
+#define TRIG_PIN            5                       // Ultrasonic Pin Trigger
+#define ECHO_PIN            18                      // Ultrasonic Pin Echo
 #define TOPIC_TELEMETRY  "farm/telemetry/greenhouse_a/mcu_01/data"
 
 #endif
